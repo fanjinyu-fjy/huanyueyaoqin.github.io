@@ -83,47 +83,47 @@
         <header class="article-info clearfix">
   <h1 itemprop="name">
     
-      <a href="/2015/01/17/hello-world/" title="Hello World" itemprop="url">Hello World</a>
+      <a href="/2014/08/08/后缀数组/" title="后缀数组小结" itemprop="url">后缀数组小结</a>
   </h1>
   <p class="article-author">By
        
 		<a href="http://huanyueyaoqin.com/about" title="幻月瑶琴" target="_blank" itemprop="author">幻月瑶琴</a>
 		
   <p class="article-time">
-    <time datetime="2015-01-17T13:16:31.000Z" itemprop="datePublished"> 发表于 1月 17 2015</time>
+    <time datetime="2014-08-08T14:51:57.000Z" itemprop="datePublished"> 发表于 8月 8 2014</time>
     
   </p>
 </header>
     <div class="article-content">
         
-        <p>Welcome to <a href="http://hexo.io/" target="_blank" rel="external">Hexo</a>! This is your very first post. Check <a href="http://hexo.io/docs/" target="_blank" rel="external">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a href="http://hexo.io/docs/troubleshooting.html" target="_blank" rel="external">trobuleshooting</a> or you can ask me on <a href="https://github.com/hexojs/hexo/issues" target="_blank" rel="external">GitHub</a>.</p>
-<h2 id="Quick_Start">Quick Start</h2>
-<h3 id="Create_a_new_post">Create a new post</h3>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ hexo new <span class="string">"My New Post"</span></div></pre></td></tr></table></figure>
-
-<p>More info: <a href="http://hexo.io/docs/writing.html" target="_blank" rel="external">Writing</a></p>
-<h3 id="Run_server">Run server</h3>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ hexo server</div></pre></td></tr></table></figure>
-
-<p>More info: <a href="http://hexo.io/docs/server.html" target="_blank" rel="external">Server</a></p>
-<h3 id="Generate_static_files">Generate static files</h3>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ hexo generate</div></pre></td></tr></table></figure>
-
-<p>More info: <a href="http://hexo.io/docs/generating.html" target="_blank" rel="external">Generating</a></p>
-<h3 id="Deploy_to_remote_sites">Deploy to remote sites</h3>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ hexo deploy</div></pre></td></tr></table></figure>
-
-<p>More info: <a href="http://hexo.io/docs/deployment.html" target="_blank" rel="external">Deployment</a></p>
+        <p>买个萌： 阅读本文最好点击分类右边的按钮</p>
+<p>首先ORZ <strong>《后缀数组——处理字符串的有力工具》-罗穗骞</strong><br>本文也是依照着这篇论文的顺序写的题解。</p>
+<p>首先必须先理解一下这三个数组（len 表示 字符串长度）</p>
+<blockquote>
+<p><strong>rank数组</strong>   ： <code>i∈[0, len),  rank[i]∈[1, len];  表示初始下标为i的后缀的排名;</code><br><strong>sa数组</strong>     ： <code>i∈[1, len],  sa[i]∈[0, len); 表示排名为i的后缀，在母串中的首个字符的下标为sa[i];</code><br><strong>height数组</strong> ： <code>i∈[2, len],  height∈[0, len);  表示排名为i的后缀和排名为i-1的后缀的公共前缀的长度;</code></p>
+</blockquote>
 
         
         
         <p class="article-more-link">
+          
+            <a href="/2014/08/08/后缀数组/#more">Read More</a>
           
        </p>
     </div>
     <footer class="article-footer clearfix">
 <div class="article-catetags">
 
+<div class="article-categories">
+  <span></span>
+  <a class="article-category-link" href="/categories/ACM/">ACM</a>
+</div>
+
+
+  <div class="article-tags">
+  
+  <span></span> <a href="/tags/ACM总结/">ACM总结</a>
+  </div>
 
 </div>
 
@@ -153,8 +153,26 @@
 <aside class="clearfix">
 
   
+<div class="categorieslist">
+	<p class="asidetitle">分类</p>
+		<ul>
+		
+			<li><a href="/categories/ACM/" title="ACM">ACM<sup>1</sup></a></li>
+		
+		</ul>
+</div>
+
 
   
+<div class="tagslist">
+	<p class="asidetitle">标签</p>
+		<ul class="clearfix">
+		
+			<li><a href="/tags/ACM总结/" title="ACM总结">ACM总结<sup>1</sup></a></li>
+		
+		</ul>
+</div>
+
 
   <div class="linkslist">
   <p class="asidetitle">友情链接</p>
