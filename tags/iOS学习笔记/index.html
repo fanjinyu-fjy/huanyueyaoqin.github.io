@@ -1,10 +1,10 @@
 
- <!DOCTYPE HTML>
+  <!DOCTYPE HTML>
 <html lang="zh-CN">
 <head>
   <meta charset="UTF-8">
   
-    <title>幻月瑶琴</title>
+    <title>Tag: iOS学习笔记 | 幻月瑶琴</title>
     <meta name="viewport" content="width=device-width, initial-scale=1,user-scalable=no">
     
     <meta name="author" content="幻月瑶琴">
@@ -15,7 +15,7 @@
     <meta name="description" content="幻月瑶琴 ACM IOS">
 <meta property="og:type" content="website">
 <meta property="og:title" content="幻月瑶琴">
-<meta property="og:url" content="http://huanyueyaoqin.com/">
+<meta property="og:url" content="http://huanyueyaoqin.com/tags/iOS学习笔记/">
 <meta property="og:site_name" content="幻月瑶琴">
 <meta property="og:description" content="幻月瑶琴 ACM IOS">
 <meta name="twitter:card" content="summary">
@@ -37,9 +37,9 @@
 
 </head>
 
-  <body>
-    <header>
-      <div>
+    <body>
+      <header>
+        <div>
 		
 			<div id="imglogo">
 				<a href="/"><img src="/img/logo.png" alt="幻月瑶琴" title="幻月瑶琴"/></a>
@@ -73,226 +73,36 @@
 				</ul>
 			</nav>			
 </div>
-    </header>
-    <div id="container">
-      <div id="main">
-
-   
-    
-    <article class="post-expand post" itemprop="articleBody"> 
-        <header class="article-info clearfix">
-  <h1 itemprop="name">
-    
-      <a href="/2015/07/15/UIBezierPath学习总结/" title="UIBezierPath学习总结" itemprop="url">UIBezierPath学习总结</a>
-  </h1>
-  <p class="article-author">By
-       
-		<a href="http://huanyueyaoqin.com/about" title="幻月瑶琴" target="_blank" itemprop="author">幻月瑶琴</a>
-		
-  <p class="article-time">
-    <time datetime="2015-07-15T04:44:59.000Z" itemprop="datePublished"> 发表于 7月 15 2015</time>
-    
-  </p>
-</header>
-    <div class="article-content">
+      </header>
+      <div id="container">
         
-        <blockquote>
-<p>根据官方文档的UIBezierPath学习总结</p>
-</blockquote>
 
-        
-        
-        <p class="article-more-link">
-          
-            <a href="/2015/07/15/UIBezierPath学习总结/#more">阅读更多</a>
-          
-       </p>
-    </div>
-    <footer class="article-footer clearfix">
-<div class="article-catetags">
-
-<div class="article-categories">
-  <span></span>
-  <a class="article-category-link" href="/categories/iOS/">iOS</a>
-</div>
-
-
-  <div class="article-tags">
+<div class="archive-title" >
+  <h2 class="tag-icon">iOS学习笔记</h2>
   
-  <span></span> <a href="/tags/iOS学习笔记/">iOS学习笔记</a>
+</div>
+<div id="main" class="archive-part clearfix">
+  <div id="archive-page">
+
+  <section class="post" itemscope itemprop="blogPost">
+  
+    <a href="/2015/07/15/UIBezierPath学习总结/" title="UIBezierPath学习总结" itemprop="url">
+  
+
+    <time datetime="2015-07-15T04:44:59.000Z" itemprop="datePublished">7月 15 2015</time>
+
+
+    <h1 itemprop="name">UIBezierPath学习总结</h1>
+
+  </a>
+</section>
+
+
   </div>
-
 </div>
 
-
-
-
-<div class="comments-count">
-	
-	  	<span></span>
-		<a href="http://huanyueyaoqin.com/2015/07/15/UIBezierPath学习总结/#comments" class="ds-thread-count comments-count-link" data-thread-key="2015/07/15/UIBezierPath学习总结/" data-count-type="comments">&nbsp;</a>
-	
-</div>
-
-</footer>
-
-
-    </article>
-
-
-
-
-
-
-   
-    
-    <article class="post-expand post" itemprop="articleBody"> 
-        <header class="article-info clearfix">
-  <h1 itemprop="name">
-    
-      <a href="/2014/08/08/后缀数组/" title="后缀数组小结" itemprop="url">后缀数组小结</a>
-  </h1>
-  <p class="article-author">By
-       
-		<a href="http://huanyueyaoqin.com/about" title="幻月瑶琴" target="_blank" itemprop="author">幻月瑶琴</a>
-		
-  <p class="article-time">
-    <time datetime="2014-08-08T14:51:57.000Z" itemprop="datePublished"> 发表于 8月 8 2014</time>
-    
-  </p>
-</header>
-    <div class="article-content">
-        
-        <p>买个萌： 阅读本文最好点击分类右边的按钮</p>
-<p>首先ORZ <strong>《后缀数组——处理字符串的有力工具》-罗穗骞</strong><br>本文也是依照着这篇论文的顺序写的题解。</p>
-<p>首先必须先理解一下这三个数组（len 表示 字符串长度）</p>
-<blockquote>
-<p><strong>rank数组</strong>   ： <code>i∈[0, len),  rank[i]∈[1, len];  表示初始下标为i的后缀的排名;</code><br><strong>sa数组</strong>     ： <code>i∈[1, len],  sa[i]∈[0, len); 表示排名为i的后缀，在母串中的首个字符的下标为sa[i];</code><br><strong>height数组</strong> ： <code>i∈[2, len],  height∈[0, len);  表示排名为i的后缀和排名为i-1的后缀的公共前缀的长度;</code></p>
-</blockquote>
-
-        
-        
-        <p class="article-more-link">
-          
-            <a href="/2014/08/08/后缀数组/#more">阅读更多</a>
-          
-       </p>
-    </div>
-    <footer class="article-footer clearfix">
-<div class="article-catetags">
-
-<div class="article-categories">
-  <span></span>
-  <a class="article-category-link" href="/categories/ACM/">ACM</a>
-</div>
-
-
-  <div class="article-tags">
-  
-  <span></span> <a href="/tags/ACM总结/">ACM总结</a>
-  </div>
-
-</div>
-
-
-
-
-<div class="comments-count">
-	
-	  	<span></span>
-		<a href="http://huanyueyaoqin.com/2014/08/08/后缀数组/#comments" class="ds-thread-count comments-count-link" data-thread-key="2014/08/08/后缀数组/" data-count-type="comments">&nbsp;</a>
-	
-</div>
-
-</footer>
-
-
-    </article>
-
-
-
-
-
-
-
-</div>
-      <div class="openaside"><a class="navbutton" href="#" title="显示侧边栏"></a></div>
-
-<div id="asidepart">
-<div class="closeaside"><a class="closebutton" href="#" title="隐藏侧边栏"></a></div>
-<aside class="clearfix">
-
-  
-<div class="categorieslist">
-	<p class="asidetitle">分类</p>
-		<ul>
-		
-			<li><a href="/categories/ACM/" title="ACM">ACM<sup>1</sup></a></li>
-		
-			<li><a href="/categories/iOS/" title="iOS">iOS<sup>1</sup></a></li>
-		
-		</ul>
-</div>
-
-
-  
-<div class="tagslist">
-	<p class="asidetitle">标签</p>
-		<ul class="clearfix">
-		
-			<li><a href="/tags/iOS学习笔记/" title="iOS学习笔记">iOS学习笔记<sup>1</sup></a></li>
-		
-			<li><a href="/tags/ACM总结/" title="ACM总结">ACM总结<sup>1</sup></a></li>
-		
-		</ul>
-</div>
-
-
-  <div class="linkslist">
-  <p class="asidetitle">友情链接</p>
-    <ul>
-        
-          <li>
-            
-            	<a href="https://coderq.com" target="_blank" title="一个面向程序员交流分享的新一代社区">码农圈</a>
-            
-          </li>
-        
-          <li>
-            
-            	<a href="http://wuchong.me" target="_blank" title="Jark&#39;s Blog">Jark&#39;s Blog</a>
-            
-          </li>
-        
-          <li>
-            
-            	<a href="http://fengzixu.net/" target="_blank" title="phoenix">phoenix</a>
-            
-          </li>
-        
-          <li>
-            
-            	<a href="http://vgee.cn/" target="_blank" title="贝贝">贝贝</a>
-            
-          </li>
-        
-          <li>
-            
-            	<a href="http://hi-hi.cn/" target="_blank" title="小王">小王</a>
-            
-          </li>
-        
-    </ul>
-</div>
-
-  <div class="rsspart">
-	<a href="/atom.xml" target="_blank" title="rss">RSS 订阅</a>
-</div>
-
-</aside>
-</div>
-    </div>
-    <footer><div id="footer" >
+      </div>
+      <footer><div id="footer" >
 	
 	<div class="line">
 		<span></span>
@@ -332,7 +142,7 @@
 		</p>
 </div>
 </footer>
-    <script src="/js/jquery-2.0.3.min.js"></script>
+      <script src="/js/jquery-2.0.3.min.js"></script>
 <script src="/js/jquery.imagesloaded.min.js"></script>
 <script src="/js/gallery.js"></script>
 
@@ -443,5 +253,5 @@ document.write(unescape("%3Cscript src='" + _bdhmProtocol + "hm.baidu.com/h.js%3
 
 <!-- MathJax End -->
 
-  </body>
- </html>
+    </body>
+   </html>

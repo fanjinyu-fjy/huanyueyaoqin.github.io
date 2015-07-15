@@ -1,0 +1,535 @@
+
+ <!DOCTYPE HTML>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  
+    <title>UIBezierPath学习总结 | 幻月瑶琴</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1,user-scalable=no">
+    
+    <meta name="author" content="幻月瑶琴">
+    
+    <meta name="description" content="根据官方文档的UIBezierPath学习总结">
+    
+    
+    <meta name="description" content="根据官方文档的UIBezierPath学习总结">
+<meta property="og:type" content="article">
+<meta property="og:title" content="UIBezierPath学习总结">
+<meta property="og:url" content="http://huanyueyaoqin.com/2015/07/15/UIBezierPath学习总结/">
+<meta property="og:site_name" content="幻月瑶琴">
+<meta property="og:description" content="根据官方文档的UIBezierPath学习总结">
+<meta property="og:image" content="https://developer.apple.com/library/prerelease/ios/documentation/UIKit/Reference/UIBezierPath_class/Art/uibezier_curve.jpg">
+<meta property="og:image" content="https://developer.apple.com/library/prerelease/ios/documentation/UIKit/Reference/UIBezierPath_class/Art/quadratic_bezier_curve.jpg">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="UIBezierPath学习总结">
+<meta name="twitter:description" content="根据官方文档的UIBezierPath学习总结">
+
+
+    
+    <link rel="alternative" href="/atom.xml" title="幻月瑶琴" type="application/atom+xml">
+    
+    
+    <link rel="icon" href="/img/favicon.ico">
+    
+    
+    <link rel="apple-touch-icon" href="/img/huanyueyaoqin.jpg">
+    <link rel="apple-touch-icon-precomposed" href="/img/huanyueyaoqin.jpg">
+    
+    <link rel="stylesheet" href="/css/style.css" type="text/css">
+
+</head>
+
+  <body>
+    <header>
+      <div>
+		
+			<div id="imglogo">
+				<a href="/"><img src="/img/logo.png" alt="幻月瑶琴" title="幻月瑶琴"/></a>
+			</div>
+			
+			<div id="textlogo">
+				<h1 class="site-name"><a href="/" title="幻月瑶琴">幻月瑶琴</a></h1>
+				<h2 class="blog-motto">你若盛开，清风自来</h2>
+			</div>
+			<div class="navbar"><a class="navbutton navmobile" href="#" title="菜单">
+			</a></div>
+			<nav class="animated">
+				<ul>
+					<ul>
+					 
+						<li><a href="/">主页</a></li>
+					
+						<li><a href="/archives">归档</a></li>
+					
+						<li><a href="/about">关于</a></li>
+					
+					<li>
+ 					
+					<form class="search" action="//google.com/search" method="get" accept-charset="utf-8">
+						<label>Search</label>
+						<input type="search" id="search" name="q" autocomplete="off" maxlength="20" placeholder="搜索" />
+						<input type="hidden" name="q" value="site:huanyueyaoqin.com">
+					</form>
+					
+					</li>
+				</ul>
+			</nav>			
+</div>
+    </header>
+    <div id="container">
+      <div id="main" class="post" itemscope itemprop="blogPost">
+  
+	<article itemprop="articleBody"> 
+		<header class="article-info clearfix">
+  <h1 itemprop="name">
+    
+      <a href="/2015/07/15/UIBezierPath学习总结/" title="UIBezierPath学习总结" itemprop="url">UIBezierPath学习总结</a>
+  </h1>
+  <p class="article-author">By
+       
+		<a href="http://huanyueyaoqin.com/about" title="幻月瑶琴" target="_blank" itemprop="author">幻月瑶琴</a>
+		
+  <p class="article-time">
+    <time datetime="2015-07-15T04:44:59.000Z" itemprop="datePublished"> 发表于 7月 15 2015</time>
+    
+  </p>
+</header>
+	<div class="article-content">
+		
+		<div id="toc" class="toc-article">
+			<strong class="toc-title">文章目录</strong>
+		
+			<ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#构建UIBezierPath类方法"><span class="toc-number">1.</span> <span class="toc-text">构建UIBezierPath类方法</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#+bezierPathWithRect:"><span class="toc-number">1.1.</span> <span class="toc-text">+bezierPathWithRect:</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#+bezierPathWithOvalInRect:"><span class="toc-number">1.2.</span> <span class="toc-text">+bezierPathWithOvalInRect:</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#+_bezierPathWithRoundedRect:cornerRadius:"><span class="toc-number">1.3.</span> <span class="toc-text">+ bezierPathWithRoundedRect:cornerRadius:</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#+_bezierPathWithRoundedRect:byRoundingCorners:cornerRadii:"><span class="toc-number">1.4.</span> <span class="toc-text">+ bezierPathWithRoundedRect:byRoundingCorners:cornerRadii:</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#+_bezierPathWithArcCenter:radius:startAngle:endAngle:clockwise:"><span class="toc-number">1.5.</span> <span class="toc-text">+ bezierPathWithArcCenter:radius:startAngle:endAngle:clockwise:</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#-_bezierPathByReversingPath:"><span class="toc-number">1.6.</span> <span class="toc-text">- bezierPathByReversingPath:</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#构建路径Path"><span class="toc-number">2.</span> <span class="toc-text">构建路径Path</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#-_moveToPoint:"><span class="toc-number">2.1.</span> <span class="toc-text">- moveToPoint:</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#-_addLineToPoint:"><span class="toc-number">2.2.</span> <span class="toc-text">- addLineToPoint:</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#-_addArcWithCenter:radius:startAngle:endAngle:clockwise:"><span class="toc-number">2.3.</span> <span class="toc-text">- addArcWithCenter:radius:startAngle:endAngle:clockwise:</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#-_addCurveToPoint:controlPoint1:controlPoint2:"><span class="toc-number">2.4.</span> <span class="toc-text">- addCurveToPoint:controlPoint1:controlPoint2:</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#-_addQuadCurveToPoint:controlPoint:"><span class="toc-number">2.5.</span> <span class="toc-text">- addQuadCurveToPoint:controlPoint:</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#-_closePath"><span class="toc-number">2.6.</span> <span class="toc-text">- closePath</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#-_removeAllPoint"><span class="toc-number">2.7.</span> <span class="toc-text">- removeAllPoint</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#-_appendPath:"><span class="toc-number">2.8.</span> <span class="toc-text">- appendPath:</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#currentPoint_"><span class="toc-number">2.9.</span> <span class="toc-text">currentPoint </span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#访问绘图属性"><span class="toc-number">3.</span> <span class="toc-text">访问绘图属性</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#_lineWidth_"><span class="toc-number">3.1.</span> <span class="toc-text"> lineWidth </span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#_lineCapStyle_"><span class="toc-number">3.2.</span> <span class="toc-text"> lineCapStyle </span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#_lineJoinStyle_"><span class="toc-number">3.3.</span> <span class="toc-text"> lineJoinStyle  </span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#绘图"><span class="toc-number">4.</span> <span class="toc-text">绘图</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#fill"><span class="toc-number">4.1.</span> <span class="toc-text">fill</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#stroke"><span class="toc-number">4.2.</span> <span class="toc-text">stroke</span></a></li></ol></li></ol>
+		
+		</div>
+		
+		<blockquote>
+<p>根据官方文档的UIBezierPath学习总结</p>
+</blockquote>
+<a id="more"></a>
+
+<h3 id="构建UIBezierPath类方法">构建UIBezierPath类方法</h3>
+<h4 id="+bezierPathWithRect:"><code>+bezierPathWithRect:</code></h4>
+<p><code>+ (instancetype) bezierPathWithOvalInRect:(CGRect)rect</code><br>根据传入的CGRect，构建一个矩形</p>
+<h4 id="+bezierPathWithOvalInRect:"><code>+bezierPathWithOvalInRect:</code></h4>
+<p><code>+ (instancetype)bezierPathWithOvalInRect:(CGRect)rect</code><br>构建矩形内椭圆<br>传入一个CGRect，根据这个矩形构建一个内椭圆形。当然，如果传入的是一个正方形，构成的就是一个圆了。</p>
+<h4 id="+_bezierPathWithRoundedRect:cornerRadius:"><code>+ bezierPathWithRoundedRect:cornerRadius:</code></h4>
+<p><code>+ (instancetype)bezierPathWithRoundedRect:(CGRect)rect cornerRadius:(CGFloat)cornerRadius</code><br>构建圆角矩形<br>传入一个CGRect 和 一个长度cornerRadius，CGRect构建矩形，长度用来确定圆角。<br>cornerRadius最大值为Min(矩形宽,矩形高)/2, 如果高于这个最大值，会自动等于此值。</p>
+<h4 id="+_bezierPathWithRoundedRect:byRoundingCorners:cornerRadii:"><code>+ bezierPathWithRoundedRect:byRoundingCorners:cornerRadii:</code></h4>
+<p><code>+ (instancetype)bezierPathWithRoundedRect:(CGRect)rect byRoundingCorners:(UIRectCorner)corners cornerRadii:(CGSize)cornerRadii</code><br><strong>注意：</strong> cornerRadii 这个CGSize属性 height是没用的….. 下面有解释<br>同样设置的最大值为最短边的一半</p>
+<blockquote>
+<p><strong>引用至stackoverflow:</strong> I filed a bug report on this as well. Apple claims that this is a deliberate change and that iOS &gt;=7 is working as designed. I say bulls**t. The new version of bezierPathWithRoundedRect:byRoundingCorners:cornerRadii: always ignores the height parameter and your corners are always quarter-circles. Under iOS &lt;= 6, you could get oval corners, but you can’t any more. Apple is full of it on this one. They broke a working function. –  Duncan C Apr 6 at 14:23</p>
+</blockquote>
+<h4 id="+_bezierPathWithArcCenter:radius:startAngle:endAngle:clockwise:"><code>+ bezierPathWithArcCenter:radius:startAngle:endAngle:clockwise:</code></h4>
+<p><code>+ (instancetype nonnull)bezierPathWithArcCenter:(CGPoint)center radius:(CGFloat)radius startAngle:(CGFloat)startAngle endAngle:(CGFloat)endAngle clockwise:(BOOL)clockwise</code><br>画个圆弧， 圆弧角度依照水平向右 顺时针旋转依次是0、PI/2、PI、PI＊3/2 、 2*PI<br>![image] (<a href="https://developer.apple.com/library/prerelease/ios/documentation/UIKit/Reference/UIBezierPath_class/Art/radians_circle.jpg">https://developer.apple.com/library/prerelease/ios/documentation/UIKit/Reference/UIBezierPath_class/Art/radians_circle.jpg</a>) </p>
+<h4 id="-_bezierPathByReversingPath:"><code>- bezierPathByReversingPath:</code></h4>
+<p><code>- (UIBezierPath * )bezierPathByReversingPath</code><br>创建一个与原BezierPath所有路径方向相反的BezierPath类<br>方向会变化，但是不会改变显示图像</p>
+<h3 id="构建路径Path">构建路径Path</h3>
+<h4 id="-_moveToPoint:"><code>- moveToPoint:</code></h4>
+<p><code>- (void)moveToPoint:(CGPoint)point</code><br>改变当前点的位置到point点，就像抬起了笔再移动到point一样，不会再中间留下路径</p>
+<h4 id="-_addLineToPoint:"><code>- addLineToPoint:</code></h4>
+<p><code>- (void)addLineToPoint:(CGPoint)point</code><br>增加一条直线当前点到point，然后改变当前点，把point作为当前点</p>
+<h4 id="-_addArcWithCenter:radius:startAngle:endAngle:clockwise:"><code>- addArcWithCenter:radius:startAngle:endAngle:clockwise:</code></h4>
+<p><code>-(void)addArcWithCenter:(CGPoint)center radius:(CGFloat)radius startAngle:(CGFloat)startAngle endAngle:(CGFloat)endAngle clockwise:(BOOL)clockwise<br></code><br>增加一个圆弧，和上面一样</p>
+<h4 id="-_addCurveToPoint:controlPoint1:controlPoint2:"><code>- addCurveToPoint:controlPoint1:controlPoint2:</code></h4>
+<p><code>- (void)addCurveToPoint:(CGPoint) controlPoint1:(CGPoint)controlPoint1 controlPoint2:(CGPoint)controlPoint2</code><br>构建一个三次贝塞尔曲线<br>看看下面这张图 就好理解了<br><img src="https://developer.apple.com/library/prerelease/ios/documentation/UIKit/Reference/UIBezierPath_class/Art/uibezier_curve.jpg" alt="image"></p>
+<h4 id="-_addQuadCurveToPoint:controlPoint:"><code>- addQuadCurveToPoint:controlPoint:</code></h4>
+<p><code>- (void)addQuadCurveToPoint:(CGPoint)endPoint controlPoint:(CGPoint)controlPoint</code><br>构建一个二次贝塞尔曲线<br><img src="https://developer.apple.com/library/prerelease/ios/documentation/UIKit/Reference/UIBezierPath_class/Art/quadratic_bezier_curve.jpg" alt="image"></p>
+<h4 id="-_closePath"><code>- closePath</code></h4>
+<p>闭合最近添加的子路径</p>
+<h4 id="-_removeAllPoint"><code>- removeAllPoint</code></h4>
+<p>涮出容器中所有的点，实际上也就是删除了所有的子路径</p>
+<h4 id="-_appendPath:"><code>- appendPath:</code></h4>
+<p>为对象添加一个 UIBezierPath</p>
+<h4 id="currentPoint_"><code>currentPoint </code></h4>
+<p><code>@property(nonatomic, readonly) CGPoint currentPoint</code><br>UIBezier的一个属性  当前的坐标点， 如果当前路径为空，当前点的值为坐标原点</p>
+<h3 id="访问绘图属性">访问绘图属性</h3>
+<h4 id="_lineWidth_"><code> lineWidth </code></h4>
+<p><code>@property(nonatomic) CGFloat lineWidth</code><br>绘图线的宽度 默认为1.0</p>
+<h4 id="_lineCapStyle_"><code> lineCapStyle </code></h4>
+<p><code>@property(nonatomic) CGLineCap lineCapStyle</code><br>设置path 起点和终点的样式</p>
+<p>CGLineCap的枚举</p>
+<figure class="highlight C++"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">enum</span> CGLineCap {</div><div class="line">   kCGLineCapButt,</div><div class="line">   kCGLineCapRound,</div><div class="line">   kCGLineCapSquare </div><div class="line">};</div><div class="line"><span class="keyword">typedef</span> <span class="keyword">enum</span> CGLineCap CGLineCap;</div></pre></td></tr></table></figure>
+
+<h4 id="_lineJoinStyle_"><code> lineJoinStyle  </code></h4>
+<p><code>@property(nonatomic) CGLineJoin lineJoinStyle</code><br>   设置线段转角处的样式                 </p>
+<figure class="highlight C++"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line"> <span class="keyword">enum</span> CGLineJoin {</div><div class="line">   kCGLineJoinMiter,</div><div class="line">   kCGLineJoinRound,</div><div class="line">   kCGLineJoinBevel </div><div class="line">};</div><div class="line"><span class="keyword">typedef</span> <span class="keyword">enum</span> CGLineJoin CGLineJoin;</div></pre></td></tr></table></figure>
+
+<h3 id="绘图">绘图</h3>
+<h4 id="fill"><code>fill</code></h4>
+<p><code>-(void) fill</code><br>使用当前的fill color 和 相关属性填充</p>
+<h4 id="stroke"><code>stroke</code></h4>
+<p><code>-(void)stroke</code><br>根据subpaths绘图 以及 相关属性</p>
+  
+	</div>
+		<footer class="article-footer clearfix">
+<div class="article-catetags">
+
+<div class="article-categories">
+  <span></span>
+  <a class="article-category-link" href="/categories/iOS/">iOS</a>
+</div>
+
+
+  <div class="article-tags">
+  
+  <span></span> <a href="/tags/iOS学习笔记/">iOS学习笔记</a>
+  </div>
+
+</div>
+
+
+
+	<div class="article-share" id="share">
+	
+	  <div data-url="http://huanyueyaoqin.com/2015/07/15/UIBezierPath学习总结/" data-title="UIBezierPath学习总结 | 幻月瑶琴" data-tsina="null" class="share clearfix">
+	  </div>
+	
+	</div>
+
+
+</footer>
+
+   	       
+	</article>
+	
+<nav class="article-nav clearfix">
+ 
+
+<div class="next">
+<a href="/2014/08/08/后缀数组/"  title="后缀数组小结">
+ <strong>下一篇：</strong><br/> 
+ <span>后缀数组小结
+</span>
+</a>
+</div>
+
+</nav>
+
+	
+<section id="comments" class="comment">
+	<div class="ds-thread" data-thread-key="2015/07/15/UIBezierPath学习总结/" data-title="UIBezierPath学习总结" data-url="http://huanyueyaoqin.com/2015/07/15/UIBezierPath学习总结/"></div>
+</section>
+
+
+</div>  
+      <div class="openaside"><a class="navbutton" href="#" title="显示侧边栏"></a></div>
+
+  <div id="toc" class="toc-aside">
+  <strong class="toc-title">文章目录</strong>
+ 
+ <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#构建UIBezierPath类方法"><span class="toc-number">1.</span> <span class="toc-text">构建UIBezierPath类方法</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#+bezierPathWithRect:"><span class="toc-number">1.1.</span> <span class="toc-text">+bezierPathWithRect:</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#+bezierPathWithOvalInRect:"><span class="toc-number">1.2.</span> <span class="toc-text">+bezierPathWithOvalInRect:</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#+_bezierPathWithRoundedRect:cornerRadius:"><span class="toc-number">1.3.</span> <span class="toc-text">+ bezierPathWithRoundedRect:cornerRadius:</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#+_bezierPathWithRoundedRect:byRoundingCorners:cornerRadii:"><span class="toc-number">1.4.</span> <span class="toc-text">+ bezierPathWithRoundedRect:byRoundingCorners:cornerRadii:</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#+_bezierPathWithArcCenter:radius:startAngle:endAngle:clockwise:"><span class="toc-number">1.5.</span> <span class="toc-text">+ bezierPathWithArcCenter:radius:startAngle:endAngle:clockwise:</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#-_bezierPathByReversingPath:"><span class="toc-number">1.6.</span> <span class="toc-text">- bezierPathByReversingPath:</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#构建路径Path"><span class="toc-number">2.</span> <span class="toc-text">构建路径Path</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#-_moveToPoint:"><span class="toc-number">2.1.</span> <span class="toc-text">- moveToPoint:</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#-_addLineToPoint:"><span class="toc-number">2.2.</span> <span class="toc-text">- addLineToPoint:</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#-_addArcWithCenter:radius:startAngle:endAngle:clockwise:"><span class="toc-number">2.3.</span> <span class="toc-text">- addArcWithCenter:radius:startAngle:endAngle:clockwise:</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#-_addCurveToPoint:controlPoint1:controlPoint2:"><span class="toc-number">2.4.</span> <span class="toc-text">- addCurveToPoint:controlPoint1:controlPoint2:</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#-_addQuadCurveToPoint:controlPoint:"><span class="toc-number">2.5.</span> <span class="toc-text">- addQuadCurveToPoint:controlPoint:</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#-_closePath"><span class="toc-number">2.6.</span> <span class="toc-text">- closePath</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#-_removeAllPoint"><span class="toc-number">2.7.</span> <span class="toc-text">- removeAllPoint</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#-_appendPath:"><span class="toc-number">2.8.</span> <span class="toc-text">- appendPath:</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#currentPoint_"><span class="toc-number">2.9.</span> <span class="toc-text">currentPoint </span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#访问绘图属性"><span class="toc-number">3.</span> <span class="toc-text">访问绘图属性</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#_lineWidth_"><span class="toc-number">3.1.</span> <span class="toc-text"> lineWidth </span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#_lineCapStyle_"><span class="toc-number">3.2.</span> <span class="toc-text"> lineCapStyle </span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#_lineJoinStyle_"><span class="toc-number">3.3.</span> <span class="toc-text"> lineJoinStyle  </span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#绘图"><span class="toc-number">4.</span> <span class="toc-text">绘图</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#fill"><span class="toc-number">4.1.</span> <span class="toc-text">fill</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#stroke"><span class="toc-number">4.2.</span> <span class="toc-text">stroke</span></a></li></ol></li></ol>
+ 
+  </div>
+
+<div id="asidepart">
+<div class="closeaside"><a class="closebutton" href="#" title="隐藏侧边栏"></a></div>
+<aside class="clearfix">
+
+  
+<div class="categorieslist">
+	<p class="asidetitle">分类</p>
+		<ul>
+		
+			<li><a href="/categories/ACM/" title="ACM">ACM<sup>1</sup></a></li>
+		
+			<li><a href="/categories/iOS/" title="iOS">iOS<sup>1</sup></a></li>
+		
+		</ul>
+</div>
+
+
+  
+<div class="tagslist">
+	<p class="asidetitle">标签</p>
+		<ul class="clearfix">
+		
+			<li><a href="/tags/iOS学习笔记/" title="iOS学习笔记">iOS学习笔记<sup>1</sup></a></li>
+		
+			<li><a href="/tags/ACM总结/" title="ACM总结">ACM总结<sup>1</sup></a></li>
+		
+		</ul>
+</div>
+
+
+  <div class="linkslist">
+  <p class="asidetitle">友情链接</p>
+    <ul>
+        
+          <li>
+            
+            	<a href="https://coderq.com" target="_blank" title="一个面向程序员交流分享的新一代社区">码农圈</a>
+            
+          </li>
+        
+          <li>
+            
+            	<a href="http://wuchong.me" target="_blank" title="Jark&#39;s Blog">Jark&#39;s Blog</a>
+            
+          </li>
+        
+          <li>
+            
+            	<a href="http://fengzixu.net/" target="_blank" title="phoenix">phoenix</a>
+            
+          </li>
+        
+          <li>
+            
+            	<a href="http://vgee.cn/" target="_blank" title="贝贝">贝贝</a>
+            
+          </li>
+        
+          <li>
+            
+            	<a href="http://hi-hi.cn/" target="_blank" title="小王">小王</a>
+            
+          </li>
+        
+    </ul>
+</div>
+
+  <div class="rsspart">
+	<a href="/atom.xml" target="_blank" title="rss">RSS 订阅</a>
+</div>
+
+</aside>
+</div>
+    </div>
+    <footer><div id="footer" >
+	
+	<div class="line">
+		<span></span>
+		<div class="author"></div>
+	</div>
+	
+	
+	<section class="info">
+		<p> Man is not made for defeat. A man can be destroyed but not defeated. <br/>
+			一个人并不是生来要被打败的，你尽可以把他消灭掉，可就是打不败他。</p>
+	</section>
+	 
+	<div class="social-font" class="clearfix">
+		
+		<a href="http://weibo.com/3953963108" target="_blank" class="icon-weibo" title="微博"></a>
+		
+		
+		<a href="https://github.com/huanyueyaoqin" target="_blank" class="icon-github" title="github"></a>
+		
+		
+		
+		
+		
+		
+		
+		<a href="https://www.zhihu.com/people/huanyueyaoqin" target="_blank" class="icon-zhihu" title="知乎"></a>
+		
+		
+		
+		<a href="mailto:huanyueyaoqin@qq.com" target="_blank" class="icon-email" title="Email Me"></a>
+		
+	</div>
+		<p class="copyright">Powered by <a href="http://zespia.tw/hexo/" target="_blank" title="hexo">hexo</a> and Theme by <a href="https://github.com/wuchong/jacman" target="_blank" title="Pacman">Jacman</a> © 2015 
+		
+		<a href="http://huanyueyaoqin.com/about" target="_blank" title="幻月瑶琴">幻月瑶琴</a>
+		
+		</p>
+</div>
+</footer>
+    <script src="/js/jquery-2.0.3.min.js"></script>
+<script src="/js/jquery.imagesloaded.min.js"></script>
+<script src="/js/gallery.js"></script>
+
+<script type="text/javascript">
+$(document).ready(function(){ 
+  $('.navbar').click(function(){
+    $('header nav').toggleClass('shownav');
+  });
+  var myWidth = 0;
+  function getSize(){
+    if( typeof( window.innerWidth ) == 'number' ) {
+      myWidth = window.innerWidth;
+    } else if( document.documentElement && document.documentElement.clientWidth) {
+      myWidth = document.documentElement.clientWidth;
+    };
+  };
+  var m = $('#main'),
+      a = $('#asidepart'),
+      c = $('.closeaside'),
+      o = $('.openaside');
+  $(window).resize(function(){
+    getSize(); 
+    if (myWidth >= 1024) {
+      $('header nav').removeClass('shownav');
+    }else
+    {
+      m.removeClass('moveMain');
+      a.css('display', 'block').removeClass('fadeOut');
+      o.css('display', 'none');
+      
+      $('#toc.toc-aside').css('display', 'none');
+        
+    }
+  });
+  c.click(function(){
+    a.addClass('fadeOut').css('display', 'none');
+    o.css('display', 'block').addClass('fadeIn');
+    m.addClass('moveMain');
+  });
+  o.click(function(){
+    o.css('display', 'none').removeClass('beforeFadeIn');
+    a.css('display', 'block').removeClass('fadeOut').addClass('fadeIn');      
+    m.removeClass('moveMain');
+  });
+  $(window).scroll(function(){
+    o.css("top",Math.max(80,260-$(this).scrollTop()));
+  });
+});
+</script>
+
+<script type="text/javascript">
+$(document).ready(function(){ 
+  var ai = $('.article-content>iframe'),
+      ae = $('.article-content>embed'),
+      t  = $('#toc'),
+      h  = $('article h2')
+      ah = $('article h2'),
+      ta = $('#toc.toc-aside'),
+      o  = $('.openaside'),
+      c  = $('.closeaside');
+  if(ai.length>0){
+    ai.wrap('<div class="video-container" />');
+  };
+  if(ae.length>0){
+   ae.wrap('<div class="video-container" />');
+  };
+  if(ah.length==0){
+    t.css('display','none');
+  }else{
+    c.click(function(){
+      ta.css('display', 'block').addClass('fadeIn');
+    });
+    o.click(function(){
+      ta.css('display', 'none');
+    });
+    $(window).scroll(function(){
+      ta.css("top",Math.max(140,320-$(this).scrollTop()));
+    });
+  };
+});
+</script>
+
+
+<script type="text/javascript">
+$(document).ready(function(){ 
+  var $this = $('.share'),
+      url = $this.attr('data-url'),
+      encodedUrl = encodeURIComponent(url),
+      title = $this.attr('data-title'),
+      tsina = $this.attr('data-tsina'),
+      description = $this.attr('description');
+  var html = [
+  '<a href="#" class="overlay" id="qrcode"></a>',
+  '<div class="qrcode clearfix"><span>扫描二维码分享到微信朋友圈</span><a class="qrclose" href="#nothing"></a><strong>Loading...Please wait</strong><img id="qrcode-pic" data-src="http://s.jiathis.com/qrcode.php?url=' + encodedUrl + '"/></div>',
+  '<a href="https://www.facebook.com/sharer.php?u=' + encodedUrl + '" class="article-share-facebook" target="_blank" title="Facebook"></a>',
+  '<a href="https://twitter.com/intent/tweet?url=' + encodedUrl + '" class="article-share-twitter" target="_blank" title="Twitter"></a>',
+  '<a href="#qrcode" class="article-share-qrcode" title="微信"></a>',
+  '<a href="http://widget.renren.com/dialog/share?resourceUrl=' + encodedUrl + '&srcUrl=' + encodedUrl + '&title=' + title +'" class="article-share-renren" target="_blank" title="人人"></a>',
+  '<a href="http://service.weibo.com/share/share.php?title='+title+'&url='+encodedUrl +'&ralateUid='+ tsina +'&searchPic=true&style=number' +'" class="article-share-weibo" target="_blank" title="微博"></a>',
+  '<span title="Share to"></span>'
+  ].join('');
+  $this.append(html);
+  $('.article-share-qrcode').click(function(){
+    var imgSrc = $('#qrcode-pic').attr('data-src');
+    $('#qrcode-pic').attr('src', imgSrc);
+    $('#qrcode-pic').load(function(){
+        $('.qrcode strong').text(' ');
+    });
+  });
+});     
+</script>
+
+
+
+<script type="text/javascript">
+  var duoshuoQuery = {short_name:"幻月瑶琴"};
+  (function() {
+    var ds = document.createElement('script');
+    ds.type = 'text/javascript';ds.async = true;
+    ds.src = '//static.duoshuo.com/embed.js';
+    ds.charset = 'UTF-8';
+    (document.getElementsByTagName('head')[0] 
+    || document.getElementsByTagName('body')[0]).appendChild(ds);
+  })();
+</script> 
+
+
+
+
+
+
+
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.css" media="screen" type="text/css">
+<script src="/fancybox/jquery.fancybox.pack.js"></script>
+<script type="text/javascript">
+$(document).ready(function(){ 
+  $('.article-content').each(function(i){
+    $(this).find('img').each(function(){
+      if ($(this).parent().hasClass('fancybox')) return;
+      var alt = this.alt;
+      if (alt) $(this).after('<span class="caption">' + alt + '</span>');
+      $(this).wrap('<a href="' + this.src + '" title="' + alt + '" class="fancybox"></a>');
+    });
+    $(this).find('.fancybox').each(function(){
+      $(this).attr('rel', 'article' + i);
+    });
+  });
+  if($.fancybox){
+    $('.fancybox').fancybox();
+  }
+}); 
+</script>
+
+
+
+<!-- Analytics Begin -->
+
+<script type="text/javascript">
+(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+})(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+ga('create', 'UA-58675138-1', 'huanyueyaoqin.com');  
+ga('send', 'pageview');
+</script>
+
+
+
+<script type="text/javascript">
+var _bdhmProtocol = (("https:" == document.location.protocol) ? " https://" : " http://");
+document.write(unescape("%3Cscript src='" + _bdhmProtocol + "hm.baidu.com/h.js%3F2becf916e2decb150a9130823208dc42' type='text/javascript'%3E%3C/script%3E"));
+</script>
+
+
+
+<script type="text/javascript">var cnzz_protocol = (("https:" == document.location.protocol) ? " https://" : " http://");document.write(unescape("%3Cspan id='cnzz_stat_icon_1254102776'%3E%3C/span%3E%3Cscript src='" + cnzz_protocol + "s23.cnzz.com/z_stat.php%3Fid%3D1254102776' type='text/javascript'%3E%3C/script%3E"));</script>
+
+<!-- Analytics End -->
+
+<!-- Totop Begin -->
+
+	<div id="totop">
+	<a title="返回顶部"><img src="/img/scrollup.png"/></a>
+	</div>
+	<script src="/js/totop.js"></script>
+
+<!-- Totop End -->
+
+<!-- MathJax Begin -->
+<!-- mathjax config similar to math.stackexchange -->
+
+
+<!-- MathJax End -->
+
+  </body>
+</html>
