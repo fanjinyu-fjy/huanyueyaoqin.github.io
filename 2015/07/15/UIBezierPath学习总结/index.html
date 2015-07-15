@@ -18,6 +18,7 @@
 <meta property="og:url" content="http://huanyueyaoqin.com/2015/07/15/UIBezierPath学习总结/">
 <meta property="og:site_name" content="幻月瑶琴">
 <meta property="og:description" content="根据官方文档的UIBezierPath学习总结">
+<meta property="og:image" content="https://developer.apple.com/library/prerelease/ios/documentation/UIKit/Reference/UIBezierPath_class/Art/radians_circle.jpg">
 <meta property="og:image" content="https://developer.apple.com/library/prerelease/ios/documentation/UIKit/Reference/UIBezierPath_class/Art/uibezier_curve.jpg">
 <meta property="og:image" content="https://developer.apple.com/library/prerelease/ios/documentation/UIKit/Reference/UIBezierPath_class/Art/quadratic_bezier_curve.jpg">
 <meta name="twitter:card" content="summary">
@@ -121,7 +122,7 @@
 <p><strong>引用至stackoverflow:</strong> I filed a bug report on this as well. Apple claims that this is a deliberate change and that iOS &gt;=7 is working as designed. I say bulls**t. The new version of bezierPathWithRoundedRect:byRoundingCorners:cornerRadii: always ignores the height parameter and your corners are always quarter-circles. Under iOS &lt;= 6, you could get oval corners, but you can’t any more. Apple is full of it on this one. They broke a working function. –  Duncan C Apr 6 at 14:23</p>
 </blockquote>
 <h3 id="+_bezierPathWithArcCenter:radius:startAngle:endAngle:clockwise:"><code>+ bezierPathWithArcCenter:radius:startAngle:endAngle:clockwise:</code></h3>
-<p><code>+ (instancetype nonnull)bezierPathWithArcCenter:(CGPoint)center radius:(CGFloat)radius startAngle:(CGFloat)startAngle endAngle:(CGFloat)endAngle clockwise:(BOOL)clockwise</code><br>画个圆弧， 圆弧角度依照水平向右 顺时针旋转依次是0、PI/2、PI、PI＊3/2 、 2*PI<br>![image] (<a href="https://developer.apple.com/library/prerelease/ios/documentation/UIKit/Reference/UIBezierPath_class/Art/radians_circle.jpg">https://developer.apple.com/library/prerelease/ios/documentation/UIKit/Reference/UIBezierPath_class/Art/radians_circle.jpg</a>) </p>
+<p><code>+ (instancetype nonnull)bezierPathWithArcCenter:(CGPoint)center radius:(CGFloat)radius startAngle:(CGFloat)startAngle endAngle:(CGFloat)endAngle clockwise:(BOOL)clockwise</code><br>画个圆弧， 圆弧角度依照水平向右 顺时针旋转依次是0、PI/2、PI、PI＊3/2 、 2*PI<br><img src="https://developer.apple.com/library/prerelease/ios/documentation/UIKit/Reference/UIBezierPath_class/Art/radians_circle.jpg" alt="image"> </p>
 <h3 id="-_bezierPathByReversingPath:"><code>- bezierPathByReversingPath:</code></h3>
 <p><code>- (UIBezierPath * )bezierPathByReversingPath</code><br>创建一个与原BezierPath所有路径方向相反的BezierPath类<br>方向会变化，但是不会改变显示图像</p>
 <h2 id="构建路径Path">构建路径Path</h2>
