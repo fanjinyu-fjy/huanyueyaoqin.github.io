@@ -1,0 +1,544 @@
+
+ <!DOCTYPE HTML>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  
+    <title>GCD小结 | 幻月瑶琴</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1,user-scalable=no">
+    
+    <meta name="author" content="幻月瑶琴">
+    
+    <meta name="description" content="GCD, 全称Grand Central Dispath, GCD是苹果公司为多核的并行运算提出的解决方案。">
+    
+    
+    <meta name="description" content="GCD, 全称Grand Central Dispath, GCD是苹果公司为多核的并行运算提出的解决方案。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="GCD小结">
+<meta property="og:url" content="http://huanyueyaoqin.com/2015/12/05/GCD小结/">
+<meta property="og:site_name" content="幻月瑶琴">
+<meta property="og:description" content="GCD, 全称Grand Central Dispath, GCD是苹果公司为多核的并行运算提出的解决方案。">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="GCD小结">
+<meta name="twitter:description" content="GCD, 全称Grand Central Dispath, GCD是苹果公司为多核的并行运算提出的解决方案。">
+
+
+    
+    <link rel="alternative" href="/atom.xml" title="幻月瑶琴" type="application/atom+xml">
+    
+    
+    <link rel="icon" href="/img/favicon.ico">
+    
+    
+    <link rel="apple-touch-icon" href="/img/huanyueyaoqin.jpg">
+    <link rel="apple-touch-icon-precomposed" href="/img/huanyueyaoqin.jpg">
+    
+    <link rel="stylesheet" href="/css/style.css" type="text/css">
+
+</head>
+
+  <body>
+    <header>
+      <div>
+		
+			<div id="imglogo">
+				<a href="/"><img src="/img/logo.png" alt="幻月瑶琴" title="幻月瑶琴"/></a>
+			</div>
+			
+			<div id="textlogo">
+				<h1 class="site-name"><a href="/" title="幻月瑶琴">幻月瑶琴</a></h1>
+				<h2 class="blog-motto">你若盛开，清风自来</h2>
+			</div>
+			<div class="navbar"><a class="navbutton navmobile" href="#" title="菜单">
+			</a></div>
+			<nav class="animated">
+				<ul>
+					<ul>
+					 
+						<li><a href="/">主页</a></li>
+					
+						<li><a href="/archives">归档</a></li>
+					
+						<li><a href="/about">关于</a></li>
+					
+					<li>
+ 					
+					<form class="search" action="//google.com/search" method="get" accept-charset="utf-8">
+						<label>Search</label>
+						<input type="search" id="search" name="q" autocomplete="off" maxlength="20" placeholder="搜索" />
+						<input type="hidden" name="q" value="site:huanyueyaoqin.com">
+					</form>
+					
+					</li>
+				</ul>
+			</nav>			
+</div>
+    </header>
+    <div id="container">
+      <div id="main" class="post" itemscope itemprop="blogPost">
+  
+	<article itemprop="articleBody"> 
+		<header class="article-info clearfix">
+  <h1 itemprop="name">
+    
+      <a href="/2015/12/05/GCD小结/" title="GCD小结" itemprop="url">GCD小结</a>
+  </h1>
+  <p class="article-author">By
+       
+		<a href="http://huanyueyaoqin.com/about" title="幻月瑶琴" target="_blank" itemprop="author">幻月瑶琴</a>
+		
+  <p class="article-time">
+    <time datetime="2015-12-05T03:16:11.000Z" itemprop="datePublished"> 发表于 12月 5 2015</time>
+    
+  </p>
+</header>
+	<div class="article-content">
+		
+		<div id="toc" class="toc-article">
+			<strong class="toc-title">文章目录</strong>
+		
+			<ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#一、介绍"><span class="toc-number">1.</span> <span class="toc-text">一、介绍</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#二、几个重要的概念(同步和异步、并行和串行)"><span class="toc-number">2.</span> <span class="toc-text">二、几个重要的概念(同步和异步、并行和串行)</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#三、GCD中的队列"><span class="toc-number">3.</span> <span class="toc-text">三、GCD中的队列</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1-dispatch_get_main_queue()_(主线程串行队列)"><span class="toc-number">3.1.</span> <span class="toc-text">1.dispatch_get_main_queue() (主线程串行队列)</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-dispatch_get_global_queue()_(全局并发队列)"><span class="toc-number">3.2.</span> <span class="toc-text">2.dispatch_get_global_queue() (全局并发队列)</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-自定义队列"><span class="toc-number">3.3.</span> <span class="toc-text">3.自定义队列</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#四、延迟执行"><span class="toc-number">4.</span> <span class="toc-text">四、延迟执行</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#五、队列组"><span class="toc-number">5.</span> <span class="toc-text">五、队列组</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#六、一次执行_dispatch_once"><span class="toc-number">6.</span> <span class="toc-text">六、一次执行 dispatch_once</span></a></li></ol>
+		
+		</div>
+		
+		<p>GCD, 全称Grand Central Dispath, GCD是苹果公司为多核的并行运算提出的解决方案。</p>
+<a id="more"></a>
+
+<h2 id="一、介绍">一、介绍</h2>
+<p>GCD, 全称Grand Central Dispath, GCD是苹果公司为多核的并行运算提出的解决方案。</p>
+<p>苹果有四种多线程处理的方法:</p>
+<ol>
+<li><p>pthread 是一套基于C语言的，创建和操纵线程的一套API。pthread线程库是一套通用的线程库，是由POSIX提出的，具有很好的可移植性。<br>但需要程序员自己管理线程的生命周期。</p>
+</li>
+<li><p>NSThread 是对<code>pthread</code>进行了面向对象的封装，较<code>pthread</code>简单易用,但是还是需要程序员来管理线程的生命周期</p>
+</li>
+<li><p>GCD 基于C语言，更底层更高效。面向的不再是线程，而是面向任务和队列。<strong>自动管理线程的生命周期</strong>。</p>
+</li>
+<li><p>NSOperation 是对GCD的封装，使其更加面向对象。</p>
+</li>
+</ol>
+<p>但对于抽象层次来说，GCD抽象层次最高，所以苹果也推荐使用GCD</p>
+<h2 id="二、几个重要的概念(同步和异步、并行和串行)">二、几个重要的概念(同步和异步、并行和串行)</h2>
+<p>前面有提到，GCD是面向任务和队列的。</p>
+<p>这里说的任务，其实是指如何处理任务的方式。GCD有两种处理方式：<strong>同步</strong>和<strong>异步</strong>。</p>
+<p><strong>同步执行</strong>: <code>dispatch_sync</code>，先阻塞当前线程，也就是说不会新开线程，直到任务在当前线程中完成。</p>
+<p><strong>异步执行</strong>: <code>dispatch_async</code>，新开线程，任务在新的线程中完成，不会阻塞当前线程。</p>
+<p>GCD中的队列可以理解为就是利用block来存放任务的。队列是FIFO的，所以按照添加顺序，任务也是FIFO的。</p>
+<p>队列分<strong>串行队列</strong>(serial queue)和<strong>并行队列</strong>(concurrent queue)</p>
+<p><strong>串行队列</strong>: 严格遵守FIFO，当线程执行完队列中的一个任务，才会去执行下一个任务。</p>
+<p><strong>并行队列</strong>: 注意，同样也是按照FIFO的。但是是同时执行几个任务。</p>
+<h2 id="三、GCD中的队列">三、GCD中的队列</h2>
+<h3 id="1-dispatch_get_main_queue()_(主线程串行队列)">1.dispatch_get_main_queue() (主线程串行队列)</h3>
+<p><code>dispatch_get_main_queue()</code>是主线程队列，属于<strong>串行队列</strong><br>添加的任务会提交到主线程中运行，</p>
+<ol>
+<li><p>获取主线程串行队列 </p>
+<p> dispatch_queue_t queue = dispatch_get_main_queue();</p>
+</li>
+<li><p>主线程队列+dispatch_sync, 会照成死锁。</p>
+<p> 分析：队列中的block任务添加在主线程中，就会阻塞主线程，因为是同步执行，所以需要执行完block任务才能解除阻塞。而主线程已被阻塞无法执行block任务，这就成了一个死循环，造成了死锁。</p>
+<p> 官方文档中也说明了，假设dispatch_sync(queue2,block)在queue1中执行，queue1和queue2相同时，就会造成死锁.</p>
+</li>
+</ol>
+<blockquote>
+<p>Submits a block to a dispatch queue for synchronous execution. Unlike dispatch_async, this function does not return until the block has finished. Calling this function and targeting the current queue results in deadlock.</p>
+</blockquote>
+<p>所以尽量避免用sync为好</p>
+<h3 id="2-dispatch_get_global_queue()_(全局并发队列)">2.dispatch_get_global_queue() (全局并发队列)</h3>
+<p><code>dispatch_get_global_queue(parameter1, parameter2)</code>：是系统的全局并发队列，可以让任务并发执行，属于<strong>并发队列</strong>。</p>
+<pre><code>parameter1为队列的优先级，队列一共有四个优先级：
+<span class="preprocessor">#<span class="keyword">define</span> DISPATCH_QUEUE_PRIORITY_HIGH        2</span>
+<span class="preprocessor">#<span class="keyword">define</span> DISPATCH_QUEUE_PRIORITY_DEFAULT     0</span>
+<span class="preprocessor">#<span class="keyword">define</span> DISPATCH_QUEUE_PRIORITY_LOW         (-2)</span>
+<span class="preprocessor">#<span class="keyword">define</span> DISPATCH_QUEUE_PRIORITY_BACKGROUND  INT16_MIN</span>
+
+parameter2为苹果预留参数，设置为<span class="number">0</span>即可
+</code></pre><p>1.同步执行 + dispatch_get_global_queue()<br>如果进行耗时操作，因为在主线程中同步执行，虽然是并发队列，还是照样会阻塞主线程</p>
+<p>2.异步执行 + dispatch_get_global_queue()<br>异步新开线程进行耗时操作就不会卡主主线程<br>异步进行耗时操作(下载图片，视频等),返回主线程同步更新</p>
+<figure class="highlight C++"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">dispatch_queue_t globalQueue = dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, <span class="number">0</span>);</div><div class="line">dispatch_async(globalQueue, ^{</div><div class="line">    <span class="comment">//耗时操作</span></div><div class="line">    dispatch_sync(dispatch_get_main_queue(), ^{</div><div class="line">        <span class="comment">// 返回主线程更新UI</span></div><div class="line">    });</div><div class="line">});</div></pre></td></tr></table></figure>
+
+<h3 id="3-自定义队列">3.自定义队列</h3>
+<p>自定义串行队列：dispatch_queue_t serialQueue = dispatch_queue_create(“serialQueue”, DISPATCH_QUEUE_SERIAL);<br>自定义并行队列：ispatch_queue_t conCurrentQueue =   dispatch_queue_create(“conCurrentQueue”, DISPATCH_QUEUE_CONCURRENT);<br>    前一个参数设置 当前队列名，方便调试时候观察<br>    后一个参数设置 自定义队列的属性(串行还是并行)</p>
+<h2 id="四、延迟执行">四、延迟执行</h2>
+<p>1&gt; perform….<br>// 3秒后自动回到当前线程调用self的download:方法，并且传递参数：@”<a href="http://555.jpg">http://555.jpg</a>“<br>[self performSelector:@selector(download:) withObject:@”<a href="http://555.jpg">http://555.jpg</a>“ afterDelay:3];</p>
+<p>2&gt; dispatch_after…<br>// 任务放到哪个队列中执行<br>dispatch_queue_t queue = dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0);<br>double delay = 3; // 延迟多少秒<br>dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(delay * NSEC_PER_SEC)), queue, ^{<br>    // 3秒后需要执行的任务<br>});</p>
+<h2 id="五、队列组">五、队列组</h2>
+<p>使用场景：当你执行多个block任务，需要他们都执行完后再执行某个操作</p>
+<p>dispatch_queue_t conCurrentGlobalQueue = dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0);<br>dispatch_queue_t mainQueue = dispatch_get_main_queue();<br>dispatch_group_t groupQueue = dispatch_group_create();<br>NSLog(@”current task”);<br>dispatch_group_async(groupQueue, conCurrentGlobalQueue, ^{<br>   NSLog(@”并行任务1”);<br>});<br>dispatch_group_async(groupQueue, conCurrentGlobalQueue, ^{<br>   NSLog(@”并行任务2”);<br>});<br>dispatch_group_notify(groupQueue, mainQueue, ^{<br>   NSLog(@”groupQueue中的任务 都执行完成,回到主线程更新UI”);<br>});<br>NSLog(@”next task”);</p>
+<h2 id="六、一次执行_dispatch_once">六、一次执行 dispatch_once</h2>
+<p>dispatch_once内部实现了在app运行过程中，block的代码只执行一次<br>static dispatch_once_t onceToken;<br>dispatch_once(&amp;onceToken, ^{<br>    // 这里面的代码，在程序运行过程中，永远只会执行1次<br>});</p>
+<p>使用场景： 单例模式</p>
+<figure class="highlight C++"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div></pre></td><td class="code"><pre><div class="line"><span class="preprocessor">#import "singleInstance.h"</span></div><div class="line"></div><div class="line">@implementation singleInstance</div><div class="line"></div><div class="line"><span class="keyword">static</span> id instance;</div><div class="line"></div><div class="line">+ (id)allocWithZone:(<span class="keyword">struct</span> _NSZone *)zone</div><div class="line">{</div><div class="line">    <span class="keyword">static</span> dispatch_once_t onceToken;</div><div class="line">    dispatch_once(&onceToken, ^{</div><div class="line">        instance = [super allocWithZone:zone];</div><div class="line">    });</div><div class="line">    <span class="keyword">return</span> instance;</div><div class="line">}</div><div class="line"></div><div class="line">+ (instancetype)shareInstance</div><div class="line">{</div><div class="line">    <span class="keyword">static</span> dispatch_once_t onceToken;</div><div class="line">    dispatch_once(&onceToken, ^{</div><div class="line">        instance = [[self alloc]init];</div><div class="line">    });</div><div class="line">    <span class="keyword">return</span> instance;</div><div class="line">}</div><div class="line"></div><div class="line">@end</div></pre></td></tr></table></figure>
+
+  
+	</div>
+		<footer class="article-footer clearfix">
+<div class="article-catetags">
+
+<div class="article-categories">
+  <span></span>
+  <a class="article-category-link" href="/categories/iOS/">iOS</a>
+</div>
+
+
+  <div class="article-tags">
+  
+  <span></span> <a href="/tags/iOS学习笔记/">iOS学习笔记</a>
+  </div>
+
+</div>
+
+
+
+	<div class="article-share" id="share">
+	
+	  <div data-url="http://huanyueyaoqin.com/2015/12/05/GCD小结/" data-title="GCD小结 | 幻月瑶琴" data-tsina="null" class="share clearfix">
+	  </div>
+	
+	</div>
+
+
+</footer>
+
+   	       
+	</article>
+	
+<nav class="article-nav clearfix">
+ 
+
+<div class="next">
+<a href="/2015/07/15/UIBezierPath学习总结/"  title="UIBezierPath学习总结">
+ <strong>下一篇：</strong><br/> 
+ <span>UIBezierPath学习总结
+</span>
+</a>
+</div>
+
+</nav>
+
+	
+<section id="comments" class="comment">
+	<div class="ds-thread" data-thread-key="2015/12/05/GCD小结/" data-title="GCD小结" data-url="http://huanyueyaoqin.com/2015/12/05/GCD小结/"></div>
+</section>
+
+
+</div>  
+      <div class="openaside"><a class="navbutton" href="#" title="显示侧边栏"></a></div>
+
+  <div id="toc" class="toc-aside">
+  <strong class="toc-title">文章目录</strong>
+ 
+ <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#一、介绍"><span class="toc-number">1.</span> <span class="toc-text">一、介绍</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#二、几个重要的概念(同步和异步、并行和串行)"><span class="toc-number">2.</span> <span class="toc-text">二、几个重要的概念(同步和异步、并行和串行)</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#三、GCD中的队列"><span class="toc-number">3.</span> <span class="toc-text">三、GCD中的队列</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1-dispatch_get_main_queue()_(主线程串行队列)"><span class="toc-number">3.1.</span> <span class="toc-text">1.dispatch_get_main_queue() (主线程串行队列)</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-dispatch_get_global_queue()_(全局并发队列)"><span class="toc-number">3.2.</span> <span class="toc-text">2.dispatch_get_global_queue() (全局并发队列)</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-自定义队列"><span class="toc-number">3.3.</span> <span class="toc-text">3.自定义队列</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#四、延迟执行"><span class="toc-number">4.</span> <span class="toc-text">四、延迟执行</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#五、队列组"><span class="toc-number">5.</span> <span class="toc-text">五、队列组</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#六、一次执行_dispatch_once"><span class="toc-number">6.</span> <span class="toc-text">六、一次执行 dispatch_once</span></a></li></ol>
+ 
+  </div>
+
+<div id="asidepart">
+<div class="closeaside"><a class="closebutton" href="#" title="隐藏侧边栏"></a></div>
+<aside class="clearfix">
+
+  
+<div class="categorieslist">
+	<p class="asidetitle">分类</p>
+		<ul>
+		
+			<li><a href="/categories/ACM/" title="ACM">ACM<sup>1</sup></a></li>
+		
+			<li><a href="/categories/iOS/" title="iOS">iOS<sup>2</sup></a></li>
+		
+		</ul>
+</div>
+
+
+  
+<div class="tagslist">
+	<p class="asidetitle">标签</p>
+		<ul class="clearfix">
+		
+			<li><a href="/tags/iOS学习笔记/" title="iOS学习笔记">iOS学习笔记<sup>2</sup></a></li>
+		
+			<li><a href="/tags/ACM总结/" title="ACM总结">ACM总结<sup>1</sup></a></li>
+		
+		</ul>
+</div>
+
+
+  <div class="linkslist">
+  <p class="asidetitle">友情链接</p>
+    <ul>
+        
+          <li>
+            
+            	<a href="https://coderq.com" target="_blank" title="一个面向程序员交流分享的新一代社区">码农圈</a>
+            
+          </li>
+        
+          <li>
+            
+            	<a href="http://wuchong.me" target="_blank" title="Jark&#39;s Blog">Jark&#39;s Blog</a>
+            
+          </li>
+        
+          <li>
+            
+            	<a href="http://fengzixu.net/" target="_blank" title="phoenix">phoenix</a>
+            
+          </li>
+        
+          <li>
+            
+            	<a href="http://vgee.cn/" target="_blank" title="贝贝">贝贝</a>
+            
+          </li>
+        
+          <li>
+            
+            	<a href="http://hi-hi.cn/" target="_blank" title="小王">小王</a>
+            
+          </li>
+        
+    </ul>
+</div>
+
+  <div class="rsspart">
+	<a href="/atom.xml" target="_blank" title="rss">RSS 订阅</a>
+</div>
+
+</aside>
+</div>
+    </div>
+    <footer><div id="footer" >
+	
+	<div class="line">
+		<span></span>
+		<div class="author"></div>
+	</div>
+	
+	
+	<section class="info">
+		<p> Man is not made for defeat. A man can be destroyed but not defeated. <br/>
+			</p>
+	</section>
+	 
+	<div class="social-font" class="clearfix">
+		
+		<a href="http://weibo.com/3953963108" target="_blank" class="icon-weibo" title="微博"></a>
+		
+		
+		<a href="https://github.com/huanyueyaoqin" target="_blank" class="icon-github" title="github"></a>
+		
+		
+		
+		
+		
+		
+		
+		<a href="https://www.zhihu.com/people/huanyueyaoqin" target="_blank" class="icon-zhihu" title="知乎"></a>
+		
+		
+		
+		<a href="mailto:huanyueyaoqin@qq.com" target="_blank" class="icon-email" title="Email Me"></a>
+		
+	</div>
+		<p class="copyright">Powered by <a href="http://zespia.tw/hexo/" target="_blank" title="hexo">hexo</a> and Theme by <a href="https://github.com/wuchong/jacman" target="_blank" title="Pacman">Jacman</a> © 2015 
+		
+		<a href="http://huanyueyaoqin.com/about" target="_blank" title="幻月瑶琴">幻月瑶琴</a>
+		
+		</p>
+</div>
+</footer>
+    <script src="/js/jquery-2.0.3.min.js"></script>
+<script src="/js/jquery.imagesloaded.min.js"></script>
+<script src="/js/gallery.js"></script>
+
+<script type="text/javascript">
+$(document).ready(function(){ 
+  $('.navbar').click(function(){
+    $('header nav').toggleClass('shownav');
+  });
+  var myWidth = 0;
+  function getSize(){
+    if( typeof( window.innerWidth ) == 'number' ) {
+      myWidth = window.innerWidth;
+    } else if( document.documentElement && document.documentElement.clientWidth) {
+      myWidth = document.documentElement.clientWidth;
+    };
+  };
+  var m = $('#main'),
+      a = $('#asidepart'),
+      c = $('.closeaside'),
+      o = $('.openaside');
+  $(window).resize(function(){
+    getSize(); 
+    if (myWidth >= 1024) {
+      $('header nav').removeClass('shownav');
+    }else
+    {
+      m.removeClass('moveMain');
+      a.css('display', 'block').removeClass('fadeOut');
+      o.css('display', 'none');
+      
+      $('#toc.toc-aside').css('display', 'none');
+        
+    }
+  });
+  c.click(function(){
+    a.addClass('fadeOut').css('display', 'none');
+    o.css('display', 'block').addClass('fadeIn');
+    m.addClass('moveMain');
+  });
+  o.click(function(){
+    o.css('display', 'none').removeClass('beforeFadeIn');
+    a.css('display', 'block').removeClass('fadeOut').addClass('fadeIn');      
+    m.removeClass('moveMain');
+  });
+  $(window).scroll(function(){
+    o.css("top",Math.max(80,260-$(this).scrollTop()));
+  });
+});
+</script>
+
+<script type="text/javascript">
+$(document).ready(function(){ 
+  var ai = $('.article-content>iframe'),
+      ae = $('.article-content>embed'),
+      t  = $('#toc'),
+      h  = $('article h2')
+      ah = $('article h2'),
+      ta = $('#toc.toc-aside'),
+      o  = $('.openaside'),
+      c  = $('.closeaside');
+  if(ai.length>0){
+    ai.wrap('<div class="video-container" />');
+  };
+  if(ae.length>0){
+   ae.wrap('<div class="video-container" />');
+  };
+  if(ah.length==0){
+    t.css('display','none');
+  }else{
+    c.click(function(){
+      ta.css('display', 'block').addClass('fadeIn');
+    });
+    o.click(function(){
+      ta.css('display', 'none');
+    });
+    $(window).scroll(function(){
+      ta.css("top",Math.max(140,320-$(this).scrollTop()));
+    });
+  };
+});
+</script>
+
+
+<script type="text/javascript">
+$(document).ready(function(){ 
+  var $this = $('.share'),
+      url = $this.attr('data-url'),
+      encodedUrl = encodeURIComponent(url),
+      title = $this.attr('data-title'),
+      tsina = $this.attr('data-tsina'),
+      description = $this.attr('description');
+  var html = [
+  '<a href="#" class="overlay" id="qrcode"></a>',
+  '<div class="qrcode clearfix"><span>扫描二维码分享到微信朋友圈</span><a class="qrclose" href="#nothing"></a><strong>Loading...Please wait</strong><img id="qrcode-pic" data-src="http://s.jiathis.com/qrcode.php?url=' + encodedUrl + '"/></div>',
+  '<a href="https://www.facebook.com/sharer.php?u=' + encodedUrl + '" class="article-share-facebook" target="_blank" title="Facebook"></a>',
+  '<a href="https://twitter.com/intent/tweet?url=' + encodedUrl + '" class="article-share-twitter" target="_blank" title="Twitter"></a>',
+  '<a href="#qrcode" class="article-share-qrcode" title="微信"></a>',
+  '<a href="http://widget.renren.com/dialog/share?resourceUrl=' + encodedUrl + '&srcUrl=' + encodedUrl + '&title=' + title +'" class="article-share-renren" target="_blank" title="人人"></a>',
+  '<a href="http://service.weibo.com/share/share.php?title='+title+'&url='+encodedUrl +'&ralateUid='+ tsina +'&searchPic=true&style=number' +'" class="article-share-weibo" target="_blank" title="微博"></a>',
+  '<span title="Share to"></span>'
+  ].join('');
+  $this.append(html);
+  $('.article-share-qrcode').click(function(){
+    var imgSrc = $('#qrcode-pic').attr('data-src');
+    $('#qrcode-pic').attr('src', imgSrc);
+    $('#qrcode-pic').load(function(){
+        $('.qrcode strong').text(' ');
+    });
+  });
+});     
+</script>
+
+
+
+<script type="text/javascript">
+  var duoshuoQuery = {short_name:"幻月瑶琴"};
+  (function() {
+    var ds = document.createElement('script');
+    ds.type = 'text/javascript';ds.async = true;
+    ds.src = '//static.duoshuo.com/embed.js';
+    ds.charset = 'UTF-8';
+    (document.getElementsByTagName('head')[0] 
+    || document.getElementsByTagName('body')[0]).appendChild(ds);
+  })();
+</script> 
+
+
+
+
+
+
+
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.css" media="screen" type="text/css">
+<script src="/fancybox/jquery.fancybox.pack.js"></script>
+<script type="text/javascript">
+$(document).ready(function(){ 
+  $('.article-content').each(function(i){
+    $(this).find('img').each(function(){
+      if ($(this).parent().hasClass('fancybox')) return;
+      var alt = this.alt;
+      if (alt) $(this).after('<span class="caption">' + alt + '</span>');
+      $(this).wrap('<a href="' + this.src + '" title="' + alt + '" class="fancybox"></a>');
+    });
+    $(this).find('.fancybox').each(function(){
+      $(this).attr('rel', 'article' + i);
+    });
+  });
+  if($.fancybox){
+    $('.fancybox').fancybox();
+  }
+}); 
+</script>
+
+
+
+<!-- Analytics Begin -->
+
+<script type="text/javascript">
+(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+})(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+ga('create', 'UA-58675138-1', 'huanyueyaoqin.com');  
+ga('send', 'pageview');
+</script>
+
+
+
+<script type="text/javascript">
+var _bdhmProtocol = (("https:" == document.location.protocol) ? " https://" : " http://");
+document.write(unescape("%3Cscript src='" + _bdhmProtocol + "hm.baidu.com/h.js%3F2becf916e2decb150a9130823208dc42' type='text/javascript'%3E%3C/script%3E"));
+</script>
+
+
+
+<script type="text/javascript">var cnzz_protocol = (("https:" == document.location.protocol) ? " https://" : " http://");document.write(unescape("%3Cspan id='cnzz_stat_icon_1254102776'%3E%3C/span%3E%3Cscript src='" + cnzz_protocol + "s23.cnzz.com/z_stat.php%3Fid%3D1254102776' type='text/javascript'%3E%3C/script%3E"));</script>
+
+<!-- Analytics End -->
+
+<!-- Totop Begin -->
+
+	<div id="totop">
+	<a title="返回顶部"><img src="/img/scrollup.png"/></a>
+	</div>
+	<script src="/js/totop.js"></script>
+
+<!-- Totop End -->
+
+<!-- MathJax Begin -->
+<!-- mathjax config similar to math.stackexchange -->
+
+
+<!-- MathJax End -->
+
+  </body>
+</html>
